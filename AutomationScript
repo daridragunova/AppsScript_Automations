@@ -1,0 +1,36 @@
+function linkManualRaw() {
+  const ui = SpreadsheetApp.getUi();
+
+  var destination_prompt = ui.prompt(
+    'Input Manual Raw Link',
+    'Enter the manual raw link here',
+    ui.ButtonSet.OK
+  );
+
+  var manual_raw_link = destination_prompt.getResponseText();
+
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+
+  const source_link = spreadsheet.getUrl();
+
+  const sheet = spreadsheet.getActiveSheet();
+
+  const manualraw = SpreadsheetApp.openByUrl(manual_raw_link).getSheetByName('Manual Raw');
+
+// market cap
+  manualraw.getRange('C3').activate();
+  manualraw.getCurrentCell().setFormula(`=INDEX(IMPORTRANGE("${source_link}", "Refresh History!D5:N5"),MATCH(C$1,IMPORTRANGE("${source_link}", "Refresh History!$D$2:$N$2"),0)`).activate();
+  
+// revenue
+  manualraw.getRange('C4').activate();
+  manualraw.getCurrentCell().setFormula(`=INDEX(IMPORTRANGE("${source_link}", "Refresh History!D3:N3"),MATCH(C$1,IMPORTRANGE("${source_link}", "Refresh History!$D$2:$N$2"),0)`).activate();
+
+//employee count 
+  manualraw.getRange('C5').activate();
+  manualraw.getCurrentCell().setFormula(`=INDEX(IMPORTRANGE("${source_link}", "Refresh History!D6:N6"),MATCH(C$1,IMPORTRANGE("${source_link}", "Refresh History!$D$2:$N$2"),0)`);
+
+//revenue growth
+  manualraw.getRange('C6').activate();
+  manualraw.getCurrentCell().setFormula(`=INDEX(IMPORTRANGE("${source_link}", "Refresh History!D4:N4"),MATCH(C$1,IMPORTRANGE("${source_link}", "Refresh History!$D$2:$N$2"),0)`);
+
+};
